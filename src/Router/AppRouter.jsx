@@ -3,6 +3,7 @@ import Home from "../pages/Home";
 import About from "../pages/About";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
+import ForgetPassword from "../pages/ForgetPassword/ForgetPassword";
 
 const AppRouter = () => {
   return (
@@ -12,6 +13,7 @@ const AppRouter = () => {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/recover-password" element={<ForgetPassword />} />
       </Routes>
     </BrowserRouter>
   );
