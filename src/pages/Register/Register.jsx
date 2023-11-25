@@ -26,7 +26,7 @@ const Register = () => {
 
   const RegisterSchema = Yup.object().shape({
     name: Yup.string().required("Campo obligatorio").trim(),
-    lastname: Yup.string().required("Campo obligatorio").trim(),
+    lastName: Yup.string().required("Campo obligatorio").trim(),
     email: Yup.string()
       .email("Agregar un email correcto")
       .required("Campo obligatorio")
@@ -45,7 +45,7 @@ const Register = () => {
       autoFocus: true,
       required: true,
     },
-    { name: "lastname", label: "Apellidos", type: "text", required: true },
+    { name: "lastName", label: "Apellidos", type: "text", required: true },
     {
       name: "email",
       label: "Correo electrónico",
@@ -78,7 +78,7 @@ const Register = () => {
           <Formik
             initialValues={{
               name: "",
-              lastname: "",
+              lastName: "",
               email: "",
               userType: "",
               password: "",
@@ -87,7 +87,7 @@ const Register = () => {
             onSubmit={(values) => {
               const userData = {
                 name: values.name,
-                lastname: values.lastname,
+                lastName: values.lastName,
                 email: values.email,
                 userType:
                   values.email === "andresparrab11@gmail.com"
