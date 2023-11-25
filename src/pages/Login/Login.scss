@@ -1,0 +1,10 @@
+.form {
+  width: 95%;
+
+  &__loginErrors {
+    color: red;
+    font-size: 14px;
+    min-width: 0;
+    width: 100%;
+  }
+}
