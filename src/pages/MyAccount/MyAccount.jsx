@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { useCookies } from "react-cookie";
@@ -10,29 +10,23 @@ import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
-import {
-  Button,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
-import "./Register.scss";
+import { Button, FormControl, InputLabel } from "@mui/material";
+import "./MyAccount.scss";
 import {
   TextInput,
   ErrorMessageText,
 } from "../../components/TextInput/TextInput";
+import { Select, MenuItem } from "@mui/material";
 
-const Register = () => {
+const MyAccount = () => {
   const isAuth = false;
+  const user = { userType: "redEAmerica" };
 
   const [, setCookie] = useCookies(["userType"]);
 
   const defaultTheme = createTheme();
 
-  const RegisterSchema = Yup.object().shape({
+  const MyAccountSchema = Yup.object().shape({
     name: Yup.string().required("Campo obligatorio").trim(),
     lastName: Yup.string().required("Campo obligatorio").trim(),
     email: Yup.string()
@@ -43,9 +37,18 @@ const Register = () => {
       .min(8, "Debe tener al menos 8 caracteres")
       .required("Campo obligatorio")
       .trim(),
+    country: Yup.string().required("Campo obligatorio").trim(),
+    cellphone: Yup.string()
+      .min(10, "Debe tener al menos 10 caracteres")
+      .required("Campo obligatorio")
+      .trim(),
+    address: Yup.string().required("Campo obligatorio").trim(),
+    typeID: Yup.string().required("Campo obligatorio").trim(),
+    numberID: Yup.string().required("Campo obligatorio").trim(),
+    documentScan: Yup.string().required("Campo obligatorio").trim(),
   });
 
-  const formFields = [
+  const formFieldsUsers = [
     {
       name: "name",
       label: "Nombres",
@@ -63,7 +66,7 @@ const Register = () => {
     {
       name: "country",
       label: "País",
-      type: "text",
+      type: "select",
       required: true,
     },
     {
@@ -75,6 +78,62 @@ const Register = () => {
     { name: "password", label: "Contraseña", type: "password", required: true },
   ];
 
+  const formFieldsUsersRedEAmerica = [
+    {
+      name: "name",
+      label: "Nombres",
+      type: "text",
+      autoFocus: true,
+      required: true,
+    },
+    { name: "lastName", label: "Apellidos", type: "text", required: true },
+    {
+      name: "email",
+      label: "Correo electrónico",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "country",
+      label: "País",
+      type: "select",
+      required: true,
+    },
+    {
+      name: "cellphone",
+      label: "Celular",
+      type: "text",
+      required: true,
+    },
+    { name: "password", label: "Contraseña", type: "password", required: true },
+    { name: "address", label: "Dirección", type: "text", required: true },
+    {
+      name: "typeID",
+      label: "Tipo de documento",
+      type: "select",
+      required: true,
+    },
+    {
+      name: "numberID",
+      label: "Número de documento",
+      type: "text",
+      required: true,
+    },
+    /*     {
+      name: "documentScan",
+      label: "Adjuntar documento",
+      type: "file",
+      required: true,
+    }, */
+  ];
+
+  let formFields = [];
+  if (user.userType === "client") {
+    formFields = formFieldsUsers;
+  } else if (user.userType === "redEAmerica") {
+    formFields = formFieldsUsersRedEAmerica;
+  }
+
   const countryOptions = [
     "Argentina",
     "Brasil",
@@ -82,6 +141,12 @@ const Register = () => {
     "Colombia",
     "Perú",
     "Otros",
+  ];
+
+  const typeIDOptions = [
+    "Cédula de ciudadanía",
+    "Cédula de extranjería",
+    "Pasaporte",
   ];
 
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -104,7 +169,7 @@ const Register = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Registro
+            Mi cuenta
           </Typography>
           <Formik
             initialValues={{
@@ -115,8 +180,12 @@ const Register = () => {
               cellphone: "",
               userType: "",
               password: "",
+              address: "",
+              typeID: "",
+              numberID: "",
+              documentScan: "",
             }}
-            validationSchema={RegisterSchema}
+            validationSchema={MyAccountSchema}
             onSubmit={async (values) => {
               await sleep(500);
               const userData = {
@@ -128,7 +197,12 @@ const Register = () => {
                     ? "admin"
                     : "client",
                 password: values.password,
+                country: values.country,
                 cellphone: values.cellphone,
+                address: values.address,
+                typeID: values.typeID,
+                numberID: values.numberID,
+                documentScan: values.documentScan,
               };
               // Convierte el objeto en una cadena JSON
               const userDataJSON = JSON.stringify(userData);
@@ -147,15 +221,15 @@ const Register = () => {
                   {formFields.map((field, index) =>
                     field.name === "email" ||
                     field.name === "password" ||
-                    field.name === "cellphone" ? (
+                    field.name === "address" ? (
                       <Grid item xs={12} key={index}>
                         <TextInput {...field} />
                         <ErrorMessageText name={field.name} />
                       </Grid>
-                    ) : field.name === "country" ? (
-                      <Grid item xs={12} key={index}>
+                    ) : field.name === "country" || field.name === "typeID" ? (
+                      <Grid item xs={12} sm={6} key={index}>
                         <FormControl fullWidth>
-                          <InputLabel id={field.name}>País</InputLabel>
+                          <InputLabel id={field.name}>{field.label}</InputLabel>
                           <Select
                             label={field.label}
                             fullWidth
@@ -166,11 +240,17 @@ const Register = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                           >
-                            {countryOptions.map((option) => (
-                              <MenuItem key={option} value={option}>
-                                {option}
-                              </MenuItem>
-                            ))}
+                            {field.name === "country"
+                              ? countryOptions.map((option) => (
+                                  <MenuItem key={option} value={option}>
+                                    {option}
+                                  </MenuItem>
+                                ))
+                              : typeIDOptions.map((option) => (
+                                  <MenuItem key={option} value={option}>
+                                    {option}
+                                  </MenuItem>
+                                ))}
                           </Select>
                         </FormControl>
                       </Grid>
@@ -181,14 +261,6 @@ const Register = () => {
                       </Grid>
                     )
                   )}
-                  <Grid item xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox value="allowExtraEmails" color="primary" />
-                      }
-                      label="¿Deseas recibir promociones y noticias de nosotros?"
-                    />
-                  </Grid>
                 </Grid>
                 <Button
                   type="submit"
@@ -197,15 +269,8 @@ const Register = () => {
                   disabled={isSubmitting}
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Registrarse
+                  ACTUALIZAR PERFIL
                 </Button>
-                <Grid container justifyContent="flex-end">
-                  <Grid item>
-                    <Link to="/login">
-                      ¿Ya tienes una cuenta? Inicia sesión
-                    </Link>
-                  </Grid>
-                </Grid>
               </Form>
             )}
           </Formik>
@@ -215,4 +280,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default MyAccount;

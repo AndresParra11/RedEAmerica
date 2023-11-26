@@ -4,6 +4,7 @@ import About from "../pages/About";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import ForgetPassword from "../pages/ForgetPassword/ForgetPassword";
+import MyAccount from "../pages/MyAccount/MyAccount";
 
 const AppRouter = () => {
   return (
@@ -13,7 +14,8 @@ const AppRouter = () => {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/recover-password" element={<ForgetPassword />} />
+        <Route path="/my-account" element={<MyAccount />} />
+        <Route path="/forget-password" element={<ForgetPassword />} />
       </Routes>
     </BrowserRouter>
   );

@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import PropTypes from "prop-types";
 import "./TextInput.scss";
 
-const TextInput = ({ name, label, autoFocus, required, type = "text" }) => (
+const TextInput = ({ name, label, autoFocus, required, type }) => (
   <Field
     as={TextField}
     autoComplete={name}
