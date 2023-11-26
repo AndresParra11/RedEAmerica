@@ -10,7 +10,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import { Button, FormControl, InputLabel, TextField } from "@mui/material";
-import "./MyAccount.scss";
+import "./FormRedEAmerica.scss";
 import {
   TextInput,
   ErrorMessageText,
@@ -23,7 +23,6 @@ import { Field, ErrorMessage } from "formik";
 
 const MyAccount = () => {
   const isAuth = false;
-  const user = { name: "Andrés", userType: "user" };
   const [documents, setDocuments] = useState({
     documentScan: [],
   });
@@ -43,7 +42,7 @@ const MyAccount = () => {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("upload_preset", "Anunciantes");
-      formData.append("public_id", `${user.name}_${type}_${i + 1}`);
+      formData.append("public_id", `${type}_${i + 1}`);
 
       try {
         const response = await axios.post(
@@ -128,37 +127,7 @@ const MyAccount = () => {
     studyDocument: Yup.string().required("Campo obligatorio").trim(),
   });
 
-  const formFieldsUsers = [
-    {
-      name: "name",
-      label: "Nombres",
-      type: "text",
-      autoFocus: true,
-      required: true,
-    },
-    { name: "lastName", label: "Apellidos", type: "text", required: true },
-    {
-      name: "email",
-      label: "Correo electrónico",
-      type: "text",
-      required: true,
-    },
-    {
-      name: "country",
-      label: "País",
-      type: "select",
-      required: true,
-    },
-    {
-      name: "phone",
-      label: "Celular",
-      type: "text",
-      required: true,
-    },
-    { name: "password", label: "Contraseña", type: "password", required: true },
-  ];
-
-  const formFieldsUsersRedEAmerica = [
+  const formFields = [
     {
       name: "name",
       label: "Nombres",
@@ -200,13 +169,6 @@ const MyAccount = () => {
       required: true,
     },
   ];
-
-  let formFields = [];
-  if (user.userType === "user") {
-    formFields = formFieldsUsers;
-  } else if (user.userType === "redEAmerica") {
-    formFields = formFieldsUsersRedEAmerica;
-  }
 
   const countryOptions = [
     "Argentina",
@@ -267,7 +229,7 @@ const MyAccount = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Mi cuenta
+            Comunidad RedEAmerica
           </Typography>
           <Button
             sx={{ marginTop: 2 }}
@@ -285,7 +247,7 @@ const MyAccount = () => {
               email: "",
               country: "",
               phone: "",
-              userType: "",
+              userType: "user",
               password: "",
               address: "",
               typeID: "",
@@ -356,106 +318,105 @@ const MyAccount = () => {
                     )
                   )}
                 </Grid>
-                {user.userType === "redEAmerica" && (
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Typography variant="h6">
-                        Documento de identidad escaneado
-                      </Typography>
-                      <Field name="documentScan">
-                        {({ field }) => (
-                          <TextField
-                            {...field}
-                            id="documentScan"
-                            type="file"
-                            fullWidth
-                            required
-                            onChange={(e) => {
-                              field.onChange(e);
-                              uploadDocuments("documentScan", e);
-                            }}
-                            multiple
-                          />
-                        )}
-                      </Field>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Typography variant="h6">Estudios académicos</Typography>
-                      <FormControl fullWidth>
-                        <InputLabel id="typeEducation">
-                          Tipo de educación
-                        </InputLabel>
-                        <Select
-                          name="typeEducation"
+
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <Typography variant="h6">
+                      Documento de identidad escaneado
+                    </Typography>
+                    <Field name="documentScan">
+                      {({ field }) => (
+                        <TextField
+                          {...field}
+                          id="documentScan"
+                          type="file"
                           fullWidth
                           required
-                          id="typeEducation"
-                          label="Tipo de educación"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.typeEducation}
-                        >
-                          {typeEducation.map((option) => (
-                            <MenuItem key={option} value={option}>
-                              {option}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                        <ErrorMessage name="typeEducation">
-                          {(msg) => <div className="errors">{msg}</div>}
-                        </ErrorMessage>
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Typography variant="h6">
-                        Certificado de estudios o acta de grado
-                      </Typography>
-                      <Field name="studyDocument">
-                        {({ field }) => (
-                          <TextField
-                            {...field}
-                            id="studyDocument"
-                            type="file"
-                            fullWidth
-                            required
-                            onChange={(e) => {
-                              field.onChange(e);
-                              uploadDocuments("studyDocument", e);
-                            }}
-                            multiple
-                          />
-                        )}
-                      </Field>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Typography variant="h6">Membresía</Typography>
-                      <FormControl fullWidth>
-                        <InputLabel id="typeEducation">
-                          Tipo de membresía
-                        </InputLabel>
-                        <Select
-                          name="typeMembership"
-                          fullWidth
-                          required
-                          id="typeMembership"
-                          label="Tipo de membresía"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.typeEducation}
-                        >
-                          {typeMembreship.map((option) => (
-                            <MenuItem key={option.value} value={option.value}>
-                              {option.label}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                        <ErrorMessage name="typeMembreship">
-                          {(msg) => <div className="errors">{msg}</div>}
-                        </ErrorMessage>
-                      </FormControl>
-                    </Grid>
+                          onChange={(e) => {
+                            field.onChange(e);
+                            uploadDocuments("documentScan", e);
+                          }}
+                          multiple
+                        />
+                      )}
+                    </Field>
                   </Grid>
-                )}
+                  <Grid item xs={12}>
+                    <Typography variant="h6">Estudios académicos</Typography>
+                    <FormControl fullWidth>
+                      <InputLabel id="typeEducation">
+                        Tipo de educación
+                      </InputLabel>
+                      <Select
+                        name="typeEducation"
+                        fullWidth
+                        required
+                        id="typeEducation"
+                        label="Tipo de educación"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.typeEducation}
+                      >
+                        {typeEducation.map((option) => (
+                          <MenuItem key={option} value={option}>
+                            {option}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      <ErrorMessage name="typeEducation">
+                        {(msg) => <div className="errors">{msg}</div>}
+                      </ErrorMessage>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography variant="h6">
+                      Certificado de estudios o acta de grado
+                    </Typography>
+                    <Field name="studyDocument">
+                      {({ field }) => (
+                        <TextField
+                          {...field}
+                          id="studyDocument"
+                          type="file"
+                          fullWidth
+                          required
+                          onChange={(e) => {
+                            field.onChange(e);
+                            uploadDocuments("studyDocument", e);
+                          }}
+                          multiple
+                        />
+                      )}
+                    </Field>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography variant="h6">Membresía</Typography>
+                    <FormControl fullWidth>
+                      <InputLabel id="typeEducation">
+                        Tipo de membresía
+                      </InputLabel>
+                      <Select
+                        name="typeMembership"
+                        fullWidth
+                        required
+                        id="typeMembership"
+                        label="Tipo de membresía"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.typeEducation}
+                      >
+                        {typeMembreship.map((option) => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      <ErrorMessage name="typeMembreship">
+                        {(msg) => <div className="errors">{msg}</div>}
+                      </ErrorMessage>
+                    </FormControl>
+                  </Grid>
+                </Grid>
                 <Button
                   type="submit"
                   fullWidth
@@ -463,7 +424,7 @@ const MyAccount = () => {
                   disabled={isSubmitting}
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  ACTUALIZAR PERFIL
+                  ENVIAR
                 </Button>
               </Form>
             )}

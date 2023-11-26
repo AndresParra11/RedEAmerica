@@ -3,18 +3,37 @@ import TextField from "@mui/material/TextField";
 import PropTypes from "prop-types";
 import "./TextInput.scss";
 
-const TextInput = ({ name, label, autoFocus, required, type }) => (
-  <Field
-    as={TextField}
-    autoComplete={name}
-    name={name}
-    required={required}
-    fullWidth
-    id={name}
-    label={label}
-    type={type}
-    autoFocus={autoFocus}
-  />
+const TextInput = ({
+  name,
+  label,
+  autoFocus,
+  required,
+  type,
+  onChange,
+  multiple,
+}) => (
+  <Field name={name}>
+    {({ field }) => (
+      <TextField
+        autoComplete={name}
+        name={field.name}
+        required={required}
+        fullWidth
+        id={name}
+        label={label}
+        type={type}
+        autoFocus={autoFocus}
+        onChange={(e) => {
+          field.onChange(e);
+          if (onChange) {
+            onChange(e); // Puedes propagar el evento onChange si es necesario
+          }
+        }}
+        value={field.value}
+        multiple={multiple}
+      />
+    )}
+  </Field>
 );
 
 const ErrorMessageText = ({ name }) => (
@@ -29,6 +48,8 @@ TextInput.propTypes = {
   autoFocus: PropTypes.bool,
   type: PropTypes.string,
   required: PropTypes.bool,
+  onChange: PropTypes.func,
+  multiple: PropTypes.bool,
 };
 
 ErrorMessageText.propTypes = {

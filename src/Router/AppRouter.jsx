@@ -5,6 +5,7 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import ForgetPassword from "../pages/ForgetPassword/ForgetPassword";
 import MyAccount from "../pages/MyAccount/MyAccount";
+import FormRedEAmerica from "../pages/FormRedEAmerica/FormRedEAmerica";
 
 const AppRouter = () => {
   return (
@@ -16,6 +17,7 @@ const AppRouter = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/my-account" element={<MyAccount />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/form-redeamerica" element={<FormRedEAmerica />} />
       </Routes>
     </BrowserRouter>
   );

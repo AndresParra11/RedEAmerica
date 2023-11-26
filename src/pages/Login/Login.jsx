@@ -72,6 +72,15 @@ const Login = () => {
             <Typography component="h1" variant="h5">
               Iniciar Sesión
             </Typography>
+            <Button
+              sx={{ marginTop: 2 }}
+              variant="contained"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Inicio
+            </Button>
             <Formik
               initialValues={{
                 email: "",

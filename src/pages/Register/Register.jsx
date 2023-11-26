@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { useCookies } from "react-cookie";
@@ -27,6 +27,7 @@ import {
 
 const Register = () => {
   const isAuth = false;
+  const navigate = useNavigate();
 
   const [, setCookie] = useCookies(["userType"]);
 
@@ -67,7 +68,7 @@ const Register = () => {
       required: true,
     },
     {
-      name: "cellphone",
+      name: "phone",
       label: "Celular",
       type: "text",
       required: true,
@@ -106,13 +107,22 @@ const Register = () => {
           <Typography component="h1" variant="h5">
             Registro
           </Typography>
+          <Button
+            sx={{ marginTop: 2 }}
+            variant="contained"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Inicio
+          </Button>
           <Formik
             initialValues={{
               name: "",
               lastName: "",
               email: "",
               country: "",
-              cellphone: "",
+              phone: "",
               userType: "",
               password: "",
             }}
@@ -128,7 +138,7 @@ const Register = () => {
                     ? "admin"
                     : "client",
                 password: values.password,
-                cellphone: values.cellphone,
+                phone: values.phone,
               };
               // Convierte el objeto en una cadena JSON
               const userDataJSON = JSON.stringify(userData);
@@ -147,7 +157,7 @@ const Register = () => {
                   {formFields.map((field, index) =>
                     field.name === "email" ||
                     field.name === "password" ||
-                    field.name === "cellphone" ? (
+                    field.name === "phone" ? (
                       <Grid item xs={12} key={index}>
                         <TextInput {...field} />
                         <ErrorMessageText name={field.name} />
