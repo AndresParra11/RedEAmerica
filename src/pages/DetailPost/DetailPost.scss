@@ -1,0 +1,34 @@
+.post-detail {
+  width: 100%;
+  &___title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  &__description {
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    text-align: justify;
+  }
+}
+
+.container__post {
+  width: 100%;
+}
+
+/* Estilos responsivos para pantallas pequeñas (móviles) */
+@media screen and (max-width: 768px) {
+  .post-detail {
+    padding: 1rem; /* Ajusta el espaciado interior en pantallas pequeñas */
+  }
+
+  .post-detail__title {
+    font-size: 1.5rem; /* Ajusta el tamaño del título en pantallas pequeñas */
+  }
+
+  .post-detail__description {
+    font-size: 1rem; /* Ajusta el tamaño de la descripción en pantallas pequeñas */
+  }
+}
