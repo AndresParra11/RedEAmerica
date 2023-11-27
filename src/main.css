@@ -1,179 +1,183 @@
 /*=============== GOOGLE FONTS ===============*/
-@import url('https://fonts.googleapis.com/css2?family=Hind:wght@500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Hind:wght@500;600;700&display=swap");
 
 /*=============== VARIABLES CSS ===============*/
 :root {
-    --header-height: 4.5rem;
+  --header-height: 4.5rem;
 
-    /*========== Colors ==========*/
-    --first-color: hsl(213,44%,44%);
-    --light-first-color: hsl(213,8%,75%);
-    --dark-first-color: hsl(213,64%,30%);
-    --accent-color: hsl(63,46%,46%);
-    --dark-accent-color: hsl(63,46%,20%);
-    --title-color: hsl(250, 8%, 15%);
-    --text-color: hsl(250, 8%, 35%);
-    --body-color: #fff;
-    --border-color: hsl(250, 8%, 80%);
-    --container-color: hsl(250, 60%, 97%);
+  /*========== Colors ==========*/
+  --first-color: hsl(213, 44%, 44%);
+  --light-first-color: hsl(213, 8%, 75%);
+  --dark-first-color: hsl(213, 64%, 30%);
+  --accent-color: hsl(63, 46%, 46%);
+  --dark-accent-color: hsl(63, 46%, 20%);
+  --title-color: hsl(250, 8%, 15%);
+  --text-color: hsl(250, 8%, 35%);
+  --body-color: #fff;
+  --border-color: hsl(250, 8%, 80%);
+  --container-color: hsl(250, 60%, 97%);
 
-    /*========== Font and typography ==========*/
-    /*.5rem = 8px | 1rem = 16px ...*/
-    --body-font: 'Hind', sans-serif;
-    --biggest-font-size: 4rem;
-    --h1-font-size: 2.25rem;
-    --h2-font-size: 1.5rem;
-    --h3-font-size: 1.25rem;
-    --normal-font-size: 1rem;
-    --small-font-size: .875rem;
-    --smaller-font-size: .813rem;
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Hind", sans-serif;
+  --biggest-font-size: 4rem;
+  --h1-font-size: 2.25rem;
+  --h2-font-size: 1.5rem;
+  --h3-font-size: 1.25rem;
+  --normal-font-size: 1rem;
+  --small-font-size: 0.875rem;
+  --smaller-font-size: 0.813rem;
 
-    /*========== Font weight ==========*/
-    --font-medium: 500;
-    --font-semibold: 600;
-    --font-bold: 700;
+  /*========== Font weight ==========*/
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
 
-    /*========== z index ==========*/
-    --z-tooltip: 10;
-    --z-fixed: 100;
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
 }
 
 /* Responsive typography */
 @media screen and (max-width: 1024px) {
-    :root {
-        --biggest-font-size: 2.75rem;
-        --h1-font-size: 1.5rem;
-        --h2-font-size: 1.25rem;
-        --h3-font-size: 1rem;
-        --normal-font-size: .938rem;
-        --small-font-size: .813rem;
-        --smaller-font-size: .75rem;
-    }
+  :root {
+    --biggest-font-size: 2.75rem;
+    --h1-font-size: 1.5rem;
+    --h2-font-size: 1.25rem;
+    --h3-font-size: 1rem;
+    --normal-font-size: 0.938rem;
+    --small-font-size: 0.813rem;
+    --smaller-font-size: 0.75rem;
+  }
 }
 
 /*=============== BASE ===============*/
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body,
 input,
 textarea {
-    font-family: var(--body-font);
-    font-size: var(--normal-font-size);
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
 }
 
 body {
-    background-color: var(--body-color);
-    color: var(--text-color);
+  background-color: var(--body-color);
+  color: var(--text-color);
 }
 
-h1, h2, h3 {
-    color: var(--title-color);
-    font-weight: var(--font-semibold);
+h1,
+h2,
+h3 {
+  color: var(--title-color);
+  font-weight: var(--font-semibold);
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
-input{
-    border: none;
-    outline: none;
+input {
+  border: none;
+  outline: none;
 }
 strong {
-    color:var(--accent-color);
+  color: var(--accent-color);
 }
 
-img{
-    max-width: 100%;
-    height: auto;
+img {
+  max-width: 100%;
+  height: auto;
 }
-
 
 /*=============== LAYOUT ===============*/
 .container {
-    max-width: 1140px;
-    margin-left: auto;
-    margin-right: auto;
+  max-width: 100%;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 .grid {
-    display: grid;
+  display: grid;
 }
-
 
 /*=============== REUSABLE CSS CLASSES ===============*/
 
 .section {
-    padding: 7rem 0 1rem;
+  padding: 7rem 0 1rem;
 }
 
 .section__title {
-    font-size: var(--h1-font-size);
-    text-align: center;
-    font-weight: var(--font-bold);
-    margin-bottom: .25rem;
-    line-height: 140%;
+  font-size: var(--h1-font-size);
+  text-align: center;
+  font-weight: var(--font-bold);
+  margin-bottom: 0.25rem;
+  line-height: 140%;
 }
 
 .section__subtitle {
-    font-size: var(--h3-font-size);
-    text-align: center;
-    font-weight: var(--font-semibold);
-    margin-bottom: 2.5rem;
-    color: var(--light-first-color);
+  font-size: var(--h3-font-size);
+  text-align: center;
+  font-weight: var(--font-semibold);
+  margin-bottom: 2.5rem;
+  color: var(--light-first-color);
 }
-
 
 /*=============== BUTTONS ===============*/
-.button{
-    text-align: center;
-    display: inline-block;
-    color: var(--body-color);
-    padding: .8rem 1.75rem;
-    border-radius: .5rem;
-    font-weight: var(--font-medium);
-    background-color: var(--accent-color);
+.button {
+  text-align: center;
+  display: inline-block;
+  color: var(--body-color);
+  padding: 0.8rem 1.75rem;
+  border-radius: 0.5rem;
+  font-weight: var(--font-medium);
+  background-color: var(--accent-color);
 }
 
-.button, .button--link {
-    border: 2px solid transparent
+.button,
+.button--link {
+  border: 2px solid transparent;
 }
 
-.button--link, .button:hover {
-    background-color: var(--first-color);
-    color: #fff;
-    border: 2px solid #fff;
-    transition: .4s; 
+.button--link,
+.button:hover {
+  background-color: var(--first-color);
+  color: #fff;
+  border: 2px solid #fff;
+  transition: 0.4s;
 }
 
 .nav__buttons {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1rem;
 }
-
 
 /*=============== SCROLL BAR ===============*/
 
-
 /*=============== BREAKPOINTS ===============*/
 /* For large devices */
-@media screen and (max-width:1206px) {}
+@media screen and (max-width: 1206px) {
+}
 
-@media screen and (max-width:1024px) {}
+@media screen and (max-width: 1024px) {
+}
 
 /* For medium devices */
-@media screen and (max-width:767px) {}
+@media screen and (max-width: 767px) {
+}
 
-@media screen and (max-width:576px) {}
+@media screen and (max-width: 576px) {
+}
 
 /* For small devices */
-@media screen and (max-width:350px) {}
+@media screen and (max-width: 350px) {
+}

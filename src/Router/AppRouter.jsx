@@ -13,7 +13,6 @@ import ListRedEAmerica from "../pages/ListRedEAmerica/ListRedEAmerica";
 import VerificationAdvertiser from "../pages/VerificationAdvertiser/VerificationAdvertiser";
 import PrivateRouter from "./PrivateRouter";
 
-
 const AppRouter = () => {
   const isAuth = true;
   return (
