@@ -14,6 +14,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import { Box, FormControl, MenuItem, Select } from "@mui/material";
 import { useEffect } from "react";
+import Nav from "../../components/Nav/Nav";
 
 const advertisers = [
   {
@@ -31,6 +32,7 @@ const advertisers = [
     studyDocument:
       "https://res.cloudinary.com/dlkvt6uph/image/upload/v1701043604/Anunciantes/studyDocument_1.jpg",
     profileStatus: "pendiente",
+    avatar: "https://i.pravatar.cc/85",
   },
   {
     name: "Daniel",
@@ -47,11 +49,12 @@ const advertisers = [
     studyDocument:
       "https://res.cloudinary.com/dlkvt6uph/image/upload/v1701043604/Anunciantes/studyDocument_1.jpg",
     profileStatus: "aprobada",
+    avatar: "https://i.pravatar.cc/100",
   },
 ];
 
 const ListAdvertisers = () => {
-  const user = { userType: "admin" };
+  const user = { roles: "ADMIN" };
   const [filteredAdvertisers, setFilteredAdvertisers] = useState([]);
   const [filterStatus, setFilterStatus] = useState("todas");
   const navigate = useNavigate();
@@ -83,11 +86,11 @@ const ListAdvertisers = () => {
     }
   };
 
-  return user && user?.userType === "admin" ? (
+  return user && user?.roles === "ADMIN" ? (
     <Container
       maxWidth="md"
       style={{
-        marginTop: "20px",
+        marginTop: "120px",
         marginBottom: "50px",
         backgroundColor: "white",
         borderRadius: "10px",
@@ -95,6 +98,7 @@ const ListAdvertisers = () => {
         padding: "10px",
       }}
     >
+      <Nav />
       <Box
         sx={{
           display: "flex",
@@ -133,7 +137,7 @@ const ListAdvertisers = () => {
               <ListItemAvatar>
                 <Avatar
                   sx={{ width: 50, height: 50, objectFit: "cover" }}
-                  src={advertiser?.images?.linksBasicImagesUpload[1]}
+                  src={advertiser?.avatar}
                 />
               </ListItemAvatar>
               <ListItemText

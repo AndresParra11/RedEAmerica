@@ -45,7 +45,7 @@ const advertisers = [
 ];
 
 const VerificationAdvertiser = () => {
-  const user = { userType: "admin" };
+  const user = { roles: "ADMIN" };
   const { name } = useParams();
   const navigate = useNavigate();
   const [advertiser, setAdvertiser] = useState({});
@@ -99,7 +99,7 @@ const VerificationAdvertiser = () => {
 
   return (
     user &&
-    user.userType === "admin" && (
+    user.roles === "ADMIN" && (
       <React.Fragment>
         <CssBaseline />
         <AppBar

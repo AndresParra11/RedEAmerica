@@ -133,13 +133,13 @@ img {
 
 /*=============== BUTTONS ===============*/
 .button {
-  text-align: center;
-  display: inline-block;
-  color: var(--body-color);
-  padding: 0.8rem 1.75rem;
-  border-radius: 0.5rem;
-  font-weight: var(--font-medium);
-  background-color: var(--accent-color);
+  text-align: center !important;
+  display: inline-block !important;
+  color: var(--body-color) !important;
+  padding: 0.8rem 1.75rem !important;
+  border-radius: 0.5rem !important;
+  font-weight: var(--font-medium) !important;
+  background-color: var(--accent-color) !important;
 }
 
 .button,

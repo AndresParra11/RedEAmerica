@@ -1,7 +1,6 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
-import { useCookies } from "react-cookie";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -28,8 +27,6 @@ import {
 const Register = () => {
   const isAuth = false;
   const navigate = useNavigate();
-
-  const [, setCookie] = useCookies(["userType"]);
 
   const defaultTheme = createTheme();
 
@@ -91,7 +88,7 @@ const Register = () => {
     <Navigate to="/" />
   ) : (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" sx={{ marginBottom: "40px" }}>
         <CssBaseline />
         <Box
           sx={{
@@ -123,32 +120,19 @@ const Register = () => {
               email: "",
               country: "",
               phone: "",
-              userType: "",
               password: "",
             }}
             validationSchema={RegisterSchema}
             onSubmit={async (values) => {
-              await sleep(500);
-              const userData = {
-                name: values.name,
-                lastName: values.lastName,
-                email: values.email,
-                userType:
-                  values.email === "andresparrab11@gmail.com"
-                    ? "admin"
-                    : "client",
-                password: values.password,
-                phone: values.phone,
-              };
-              // Convierte el objeto en una cadena JSON
-              const userDataJSON = JSON.stringify(userData);
-
-              setCookie("userData", userDataJSON, 3600);
-              localStorage.setItem(
-                `${userData.email}`,
-                JSON.stringify(userData)
-              );
-              alert(JSON.stringify(values, null, 2));
+              if (values.email === "redeamerica@admin.com") {
+                await sleep(500);
+                alert(JSON.stringify(values, null, 2));
+                navigate("/list-redeamerica");
+              } else {
+                await sleep(500);
+                alert(JSON.stringify(values, null, 2));
+                navigate("/home_auth");
+              }
             }}
           >
             {({ isSubmitting, values, handleBlur, handleChange }) => (
