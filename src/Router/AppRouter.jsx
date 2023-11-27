@@ -6,7 +6,6 @@ import Register from "../pages/Register/Register";
 import Blog from "../pages/Blog/Blog";
 import ForgetPassword from "../pages/ForgetPassword/ForgetPassword";
 import AuthApp from "../pages/layout/AuthApp";
-import CreatePage from "../pages/Blog/CreateBlog/CreateBlog";
 import MyAccount from "../pages/MyAccount/MyAccount";
 import FormRedEAmerica from "../pages/FormRedEAmerica/FormRedEAmerica";
 import ListRedEAmerica from "../pages/ListRedEAmerica/ListRedEAmerica";
@@ -14,6 +13,7 @@ import VerificationAdvertiser from "../pages/VerificationAdvertiser/Verification
 import PrivateRouter from "./PrivateRouter";
 import { createContext, useState } from "react";
 import DetailPost from "../pages/DetailPost/DetailPost";
+import CreatePage from "../pages/Blog/BlogCreate/BlogCreate";
 
 export const User = createContext({});
 

@@ -10,6 +10,7 @@ import {
 import { User } from "../../../Router/AppRouter";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Sidebar.css";
 
 const advertiser = {
   name: "Andrés Felipe",
