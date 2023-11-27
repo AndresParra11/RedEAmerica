@@ -1,6 +1,6 @@
 //import React from 'react';
 import { Link } from 'react-router-dom';
-import '../../pages/Home/Home.css';
+import './Nav.css';
 
 const Nav = () => {
     return (
@@ -11,10 +11,7 @@ const Nav = () => {
                     <ul className="nav__list">
                         <li className="nav__item">
                             <Link to="/" className="nav__link active-link">Inicio</Link>
-                        </li>
-                        <li className="nav__item">
-                            <Link to="/courses" className="nav__link">Cursos proporcionados</Link>
-                        </li>
+                        </li>   
                         <li className="nav__item">
                             <Link to="/teachers" className="nav__link">Nosotros</Link>
                         </li>

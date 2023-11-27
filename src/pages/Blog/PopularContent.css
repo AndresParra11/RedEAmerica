@@ -1,0 +1,71 @@
+.post_card {
+    width: 100%;
+    height: 300px;
+    max-width: 300px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1rem;
+}
+
+.post_card__header {
+    padding: .8rem;
+}
+
+.post_card__header img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: .5rem;
+}
+
+.post_card__body {
+    padding: .8rem;
+}
+
+.post_card__body__title {
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.post_card__body__title:hover {
+    transition: .4s;
+    color: var(--accent-color);
+}
+
+.post_card__body__description {
+    font-size: 14px;
+}
+
+.button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.button__blog {
+    margin-top: 16px;
+}
+
+.post_card__body__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #888;
+}
+
+.post_card__body__footer__date {
+    margin-right: 8px;
+}
+
+.post_card__body__footer__author {
+    margin-left: 8px;
+}
+
+
