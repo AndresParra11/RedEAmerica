@@ -12,31 +12,40 @@ import FormRedEAmerica from "../pages/FormRedEAmerica/FormRedEAmerica";
 import ListRedEAmerica from "../pages/ListRedEAmerica/ListRedEAmerica";
 import VerificationAdvertiser from "../pages/VerificationAdvertiser/VerificationAdvertiser";
 import PrivateRouter from "./PrivateRouter";
+import { createContext, useState } from "react";
+import DetailPost from "../pages/DetailPost/DetailPost";
+
+export const User = createContext({});
 
 const AppRouter = () => {
-  const isAuth = true;
+  const [isAuth, setIsAuth] = useState(true);
+  const [user, setUser] = useState({});
+
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home_auth" element={<AuthApp />} />
-        <Route path="/create_blog" element={<CreatePage />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/forget-password" element={<ForgetPassword />} />
-        <Route path="/form-redeamerica" element={<FormRedEAmerica />} />
+      <User.Provider value={{ isAuth, setIsAuth, user, setUser }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home_auth" element={<AuthApp />} />
+          <Route path="/create_blog" element={<CreatePage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route path="/form-redeamerica" element={<FormRedEAmerica />} />
+          <Route path="/detailPost/:id" element={<DetailPost />} />
 
-        <Route element={<PrivateRouter isAuthentication={isAuth} />}>
-          <Route path="/my-account" element={<MyAccount />} />
-          <Route path="/list-redeamerica" element={<ListRedEAmerica />} />
-          <Route
-            path="/detail-advertiser/:name"
-            element={<VerificationAdvertiser />}
-          />
-        </Route>
-      </Routes>
+          <Route element={<PrivateRouter isAuthentication={isAuth} />}>
+            <Route path="/my-account" element={<MyAccount />} />
+            <Route path="/list-redeamerica" element={<ListRedEAmerica />} />
+            <Route
+              path="/detail-advertiser/:name"
+              element={<VerificationAdvertiser />}
+            />
+          </Route>
+        </Routes>
+      </User.Provider>
     </BrowserRouter>
   );
 };

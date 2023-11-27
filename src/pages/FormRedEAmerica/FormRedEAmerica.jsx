@@ -24,7 +24,7 @@ import { Field, ErrorMessage } from "formik";
 const MyAccount = () => {
   const isAuth = false;
   const [documents, setDocuments] = useState({
-    documentScan: [],
+    urlIdentificationScan: [],
   });
   const navigate = useNavigate();
 
@@ -33,8 +33,8 @@ const MyAccount = () => {
   const uploadDocuments = async (type, e) => {
     const files = e.target.files;
     let allUploadsSuccessful = true;
-    let allBasicDocuments = Array.isArray(documents?.documentScan)
-      ? [...documents.documentScan]
+    let allBasicDocuments = Array.isArray(documents?.urlIdentificationScan)
+      ? [...documents.urlIdentificationScan]
       : [];
 
     for (let i = 0; i < files.length; i++) {
@@ -57,7 +57,10 @@ const MyAccount = () => {
           const fileURL = response.data.secure_url;
 
           // Agregar la imagen a un arreglo u otro dependiendo del tipo
-          if (type === "documentScan" || type === "studyDocument") {
+          if (
+            type === "urlIdentificationScan" ||
+            type === "urlEducationCertificate"
+          ) {
             allBasicDocuments.push(fileURL);
           }
         } else {
@@ -70,20 +73,20 @@ const MyAccount = () => {
     }
 
     setDocuments({
-      documentScan: allBasicDocuments,
+      urlIdentificationScan: allBasicDocuments,
     });
 
     setFormValues({
       ...formValues,
       documents: {
-        documentScan: allBasicDocuments,
+        urlIdentificationScan: allBasicDocuments,
       },
     });
 
     const updatedFormValues = {
       ...formValues,
       documents: {
-        documentScan: allBasicDocuments,
+        urlIdentificationScan: allBasicDocuments,
       },
     };
     sessionStorage.setItem("formData", JSON.stringify(updatedFormValues));
@@ -120,11 +123,11 @@ const MyAccount = () => {
       .required("Campo obligatorio")
       .trim(),
     address: Yup.string().required("Campo obligatorio").trim(),
-    typeID: Yup.string().required("Campo obligatorio").trim(),
-    numberID: Yup.string().required("Campo obligatorio").trim(),
-    documentScan: Yup.string().required("Campo obligatorio").trim(),
-    typeEducation: Yup.string().required("Campo obligatorio").trim(),
-    studyDocument: Yup.string().required("Campo obligatorio").trim(),
+    identificationType: Yup.string().required("Campo obligatorio").trim(),
+    identificationNumber: Yup.string().required("Campo obligatorio").trim(),
+    urlIdentificationScan: Yup.string().required("Campo obligatorio").trim(),
+    educationLevel: Yup.string().required("Campo obligatorio").trim(),
+    urlEducationCertificate: Yup.string().required("Campo obligatorio").trim(),
   });
 
   const formFields = [
@@ -157,13 +160,13 @@ const MyAccount = () => {
     { name: "password", label: "Contraseña", type: "password", required: true },
     { name: "address", label: "Dirección", type: "text", required: true },
     {
-      name: "typeID",
+      name: "identificationType",
       label: "Tipo de documento",
       type: "select",
       required: true,
     },
     {
-      name: "numberID",
+      name: "identificationNumber",
       label: "Número de documento",
       type: "text",
       required: true,
@@ -179,13 +182,13 @@ const MyAccount = () => {
     "Otros",
   ];
 
-  const typeIDOptions = [
+  const identificationTypeOptions = [
     "Cédula de ciudadanía",
     "Cédula de extranjería",
     "Pasaporte",
   ];
 
-  const typeEducation = [
+  const educationLevel = [
     "Primaria",
     "Secundaria",
     "Técnico",
@@ -247,27 +250,44 @@ const MyAccount = () => {
               email: "",
               country: "",
               phone: "",
-              userType: "user",
               password: "",
               address: "",
-              typeID: "",
-              numberID: "",
-              documentScan: "",
-              typeEducation: "",
-              studyDocument: "",
+              identificationType: "",
+              identificationNumber: "",
+              urlIdentificationScan: "",
+              educationLevel: "",
+              urlEducationCertificate: "",
+              typeMembreship: "",
             }}
             validationSchema={MyAccountSchema}
             onSubmit={async (values) => {
               await sleep(500);
-              const formData = {
-                ...values,
-                documents: {
-                  documentScan: documents.documentScan[0],
-                  studyDocument: documents.documentScan[1],
-                },
+              // Crear una copia de las propiedades desde address hacia abajo
+              const {
+                address,
+                identificationType,
+                identificationNumber,
+                urlIdentificationScan,
+                educationLevel,
+                urlEducationCertificate,
+                typeMembreship,
+              } = values;
+              const updatedValues = {
+                address,
+                identificationType,
+                identificationNumber,
+                urlIdentificationScan,
+                educationLevel,
+                urlEducationCertificate,
+                typeMembreship,
               };
-              alert(JSON.stringify(formData, null, 2));
-              console.log(formData);
+              updatedValues.urlIdentificationScan =
+                documents.urlIdentificationScan[0];
+              updatedValues.urlEducationCertificate =
+                documents.urlIdentificationScan[1];
+
+              alert(JSON.stringify(updatedValues, null, 2));
+              console.log(updatedValues);
             }}
           >
             {({ isSubmitting, values, handleBlur, handleChange }) => (
@@ -277,12 +297,13 @@ const MyAccount = () => {
                     field.name === "email" ||
                     field.name === "password" ||
                     field.name === "address" ||
-                    field.name === "documentScan" ? (
+                    field.name === "urlIdentificationScan" ? (
                       <Grid item xs={12} key={index}>
                         <TextInput {...field} />
                         <ErrorMessageText name={field.name} />
                       </Grid>
-                    ) : field.name === "country" || field.name === "typeID" ? (
+                    ) : field.name === "country" ||
+                      field.name === "identificationType" ? (
                       <Grid item xs={12} sm={6} key={index}>
                         <FormControl fullWidth>
                           <InputLabel id={field.name}>{field.label}</InputLabel>
@@ -302,7 +323,7 @@ const MyAccount = () => {
                                     {option}
                                   </MenuItem>
                                 ))
-                              : typeIDOptions.map((option) => (
+                              : identificationTypeOptions.map((option) => (
                                   <MenuItem key={option} value={option}>
                                     {option}
                                   </MenuItem>
@@ -324,17 +345,17 @@ const MyAccount = () => {
                     <Typography variant="h6">
                       Documento de identidad escaneado
                     </Typography>
-                    <Field name="documentScan">
+                    <Field name="urlIdentificationScan">
                       {({ field }) => (
                         <TextField
                           {...field}
-                          id="documentScan"
+                          id="urlIdentificationScan"
                           type="file"
                           fullWidth
                           required
                           onChange={(e) => {
                             field.onChange(e);
-                            uploadDocuments("documentScan", e);
+                            uploadDocuments("urlIdentificationScan", e);
                           }}
                           multiple
                         />
@@ -344,26 +365,26 @@ const MyAccount = () => {
                   <Grid item xs={12}>
                     <Typography variant="h6">Estudios académicos</Typography>
                     <FormControl fullWidth>
-                      <InputLabel id="typeEducation">
+                      <InputLabel id="educationLevel">
                         Tipo de educación
                       </InputLabel>
                       <Select
-                        name="typeEducation"
+                        name="educationLevel"
                         fullWidth
                         required
-                        id="typeEducation"
+                        id="educationLevel"
                         label="Tipo de educación"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.typeEducation}
+                        value={values.educationLevel}
                       >
-                        {typeEducation.map((option) => (
+                        {educationLevel.map((option) => (
                           <MenuItem key={option} value={option}>
                             {option}
                           </MenuItem>
                         ))}
                       </Select>
-                      <ErrorMessage name="typeEducation">
+                      <ErrorMessage name="educationLevel">
                         {(msg) => <div className="errors">{msg}</div>}
                       </ErrorMessage>
                     </FormControl>
@@ -372,17 +393,17 @@ const MyAccount = () => {
                     <Typography variant="h6">
                       Certificado de estudios o acta de grado
                     </Typography>
-                    <Field name="studyDocument">
+                    <Field name="urlEducationCertificate">
                       {({ field }) => (
                         <TextField
                           {...field}
-                          id="studyDocument"
+                          id="urlEducationCertificate"
                           type="file"
                           fullWidth
                           required
                           onChange={(e) => {
                             field.onChange(e);
-                            uploadDocuments("studyDocument", e);
+                            uploadDocuments("urlEducationCertificate", e);
                           }}
                           multiple
                         />
@@ -392,18 +413,18 @@ const MyAccount = () => {
                   <Grid item xs={12}>
                     <Typography variant="h6">Membresía</Typography>
                     <FormControl fullWidth>
-                      <InputLabel id="typeEducation">
+                      <InputLabel id="typeMembreship">
                         Tipo de membresía
                       </InputLabel>
                       <Select
-                        name="typeMembership"
+                        name="typeMembreship"
                         fullWidth
                         required
-                        id="typeMembership"
+                        id="typeMembreship"
                         label="Tipo de membresía"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.typeMembership}
+                        value={values.typeMembreship}
                       >
                         {typeMembreship.map((option) => (
                           <MenuItem key={option.value} value={option.value}>

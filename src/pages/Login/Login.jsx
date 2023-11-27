@@ -13,12 +13,10 @@ import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { Navigate, Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
-import { useCookies } from "react-cookie";
 
 const defaultTheme = createTheme();
 
 const Login = () => {
-  const [, setCookie] = useCookies(["userType"]);
   const navigate = useNavigate();
   const isAuth = false;
 
@@ -88,13 +86,13 @@ const Login = () => {
               }}
               validationSchema={LoginSchema}
               onSubmit={async (values) => {
-                if (values.email === "andresparrab11@gmail.com") {
+                if (values.email === "redeamerica@admin.com") {
                   await sleep(500);
-                  setCookie("userType", "admin", 3600);
                   alert(JSON.stringify(values, null, 2));
-                  navigate("/");
-
-                  return;
+                  navigate("/list-redeamerica");
+                } else {
+                  await sleep(500);
+                  navigate("/home_auth");
                 }
               }}
             >
