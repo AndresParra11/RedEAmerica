@@ -218,7 +218,7 @@ const MyAccount = () => {
     <Navigate to="/" />
   ) : (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main">
         <CssBaseline />
         <Box
           sx={{
