@@ -6,12 +6,12 @@ import Register from "../pages/Register/Register";
 import Blog from "../pages/Blog/Blog";
 import ForgetPassword from "../pages/ForgetPassword/ForgetPassword";
 import AuthApp from "../pages/layout/AuthApp";
-import CreatePage from "../pages/Blog/CreateBlog/CreateBlog";
 import MyAccount from "../pages/MyAccount/MyAccount";
 import FormRedEAmerica from "../pages/FormRedEAmerica/FormRedEAmerica";
 import ListRedEAmerica from "../pages/ListRedEAmerica/ListRedEAmerica";
 import VerificationAdvertiser from "../pages/VerificationAdvertiser/VerificationAdvertiser";
 import PrivateRouter from "./PrivateRouter";
+import BlogCreate from "../pages/Blog/BlogCreate/BlogCreate";
 
 const AppRouter = () => {
   const isAuth = true;
@@ -19,8 +19,8 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/blog/create" element={<BlogCreate />} />
         <Route path="/home_auth" element={<AuthApp />} />
-        <Route path="/create_blog" element={<CreatePage />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
