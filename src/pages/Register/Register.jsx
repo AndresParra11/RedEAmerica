@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { useCookies } from "react-cookie";
@@ -10,7 +10,15 @@ import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
-import { Button, Checkbox, FormControlLabel } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import "./Register.scss";
 import {
   TextInput,
@@ -19,6 +27,7 @@ import {
 
 const Register = () => {
   const isAuth = false;
+  const navigate = useNavigate();
 
   const [, setCookie] = useCookies(["userType"]);
 
@@ -52,8 +61,31 @@ const Register = () => {
       type: "text",
       required: true,
     },
+    {
+      name: "country",
+      label: "País",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "phone",
+      label: "Celular",
+      type: "text",
+      required: true,
+    },
     { name: "password", label: "Contraseña", type: "password", required: true },
   ];
+
+  const countryOptions = [
+    "Argentina",
+    "Brasil",
+    "Chile",
+    "Colombia",
+    "Perú",
+    "Otros",
+  ];
+
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
   return isAuth ? (
     <Navigate to="/" />
@@ -75,16 +107,28 @@ const Register = () => {
           <Typography component="h1" variant="h5">
             Registro
           </Typography>
+          <Button
+            sx={{ marginTop: 2 }}
+            variant="contained"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Inicio
+          </Button>
           <Formik
             initialValues={{
               name: "",
               lastName: "",
               email: "",
+              country: "",
+              phone: "",
               userType: "",
               password: "",
             }}
             validationSchema={RegisterSchema}
-            onSubmit={(values) => {
+            onSubmit={async (values) => {
+              await sleep(500);
               const userData = {
                 name: values.name,
                 lastName: values.lastName,
@@ -94,6 +138,7 @@ const Register = () => {
                     ? "admin"
                     : "client",
                 password: values.password,
+                phone: values.phone,
               };
               // Convierte el objeto en una cadena JSON
               const userDataJSON = JSON.stringify(userData);
@@ -103,46 +148,76 @@ const Register = () => {
                 `${userData.email}`,
                 JSON.stringify(userData)
               );
+              alert(JSON.stringify(values, null, 2));
             }}
           >
-            <Form className="form">
-              <Grid container spacing={2}>
-                {formFields.map((field, index) =>
-                  field.name === "email" || field.name === "password" ? (
-                    <Grid item xs={12} key={index}>
-                      <TextInput {...field} />
-                      <ErrorMessageText name={field.name} />
-                    </Grid>
-                  ) : (
-                    <Grid item xs={12} sm={6} key={index}>
-                      <TextInput {...field} />
-                      <ErrorMessageText name={field.name} />
-                    </Grid>
-                  )
-                )}
-                <Grid item xs={12}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox value="allowExtraEmails" color="primary" />
-                    }
-                    label="¿Deseas recibir promociones y noticias de nosotros?"
-                  />
+            {({ isSubmitting, values, handleBlur, handleChange }) => (
+              <Form className="form">
+                <Grid container spacing={2}>
+                  {formFields.map((field, index) =>
+                    field.name === "email" ||
+                    field.name === "password" ||
+                    field.name === "phone" ? (
+                      <Grid item xs={12} key={index}>
+                        <TextInput {...field} />
+                        <ErrorMessageText name={field.name} />
+                      </Grid>
+                    ) : field.name === "country" ? (
+                      <Grid item xs={12} key={index}>
+                        <FormControl fullWidth>
+                          <InputLabel id={field.name}>País</InputLabel>
+                          <Select
+                            label={field.label}
+                            fullWidth
+                            required
+                            id={field.name}
+                            name={field.name}
+                            value={values[field.name]}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          >
+                            {countryOptions.map((option) => (
+                              <MenuItem key={option} value={option}>
+                                {option}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                    ) : (
+                      <Grid item xs={12} sm={6} key={index}>
+                        <TextInput {...field} />
+                        <ErrorMessageText name={field.name} />
+                      </Grid>
+                    )
+                  )}
+                  <Grid item xs={12}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox value="allowExtraEmails" color="primary" />
+                      }
+                      label="¿Deseas recibir promociones y noticias de nosotros?"
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Registrarse
-              </Button>
-              <Grid container justifyContent="flex-end">
-                <Grid item>
-                  <Link to="/login">¿Ya tienes una cuenta? Inicia sesión</Link>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  disabled={isSubmitting}
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Registrarse
+                </Button>
+                <Grid container justifyContent="flex-end">
+                  <Grid item>
+                    <Link to="/login">
+                      ¿Ya tienes una cuenta? Inicia sesión
+                    </Link>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Form>
+              </Form>
+            )}
           </Formik>
         </Box>
       </Container>

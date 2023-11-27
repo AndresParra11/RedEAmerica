@@ -33,6 +33,8 @@ const Login = () => {
       .trim(),
   });
 
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
   return isAuth ? (
     <Navigate to="/" replace />
   ) : (
@@ -70,6 +72,15 @@ const Login = () => {
             <Typography component="h1" variant="h5">
               Iniciar Sesión
             </Typography>
+            <Button
+              sx={{ marginTop: 2 }}
+              variant="contained"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Inicio
+            </Button>
             <Formik
               initialValues={{
                 email: "",
@@ -78,6 +89,7 @@ const Login = () => {
               validationSchema={LoginSchema}
               onSubmit={async (values) => {
                 if (values.email === "andresparrab11@gmail.com") {
+                  await sleep(500);
                   setCookie("userType", "admin", 3600);
                   alert(JSON.stringify(values, null, 2));
                   navigate("/");
@@ -131,7 +143,7 @@ const Login = () => {
                   </Button>
                   <Grid container>
                     <Grid item xs>
-                      <Link to="/recover-password">
+                      <Link to="/forget-password">
                         ¿Olvidaste tu contraseña?
                       </Link>
                     </Grid>
