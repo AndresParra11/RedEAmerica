@@ -2,6 +2,7 @@
 import './Sidebar.css';
 import face from '../../../assets/Img/teacher-1.jpg';
 import { FaPalette, FaImages, FaCaretUp , FaHeart, FaSignOutAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 
 const Sidebar = () => {
@@ -11,7 +12,10 @@ const Sidebar = () => {
     <div id="nav-bar">
       <input id="nav-toggle" type="checkbox" />
       <div id="nav-header">
-        <a id="nav-title" href="#">RedEAmerica</a>
+      <Link to='/home_auth' className="nav__link active-link">
+      <a id="nav-title">RedEAmerica</a>
+          </Link>
+        
         <label htmlFor="nav-toggle">
           <span id="nav-toggle-burger"></span>
         </label>
@@ -20,7 +24,10 @@ const Sidebar = () => {
       <div id="nav-content">
       <div className="nav-button ">
           <FaPalette className='fas '/>
+          <Link to='/blog/create' className="nav__link active-link">
           <span>Crear Nuevo Blog</span>
+          </Link>
+          
       </div>
         <div className="nav-button">
           <FaImages className='fas' />
