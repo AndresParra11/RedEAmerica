@@ -403,7 +403,7 @@ const MyAccount = () => {
                         label="Tipo de membresía"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.typeEducation}
+                        value={values.typeMembership}
                       >
                         {typeMembreship.map((option) => (
                           <MenuItem key={option.value} value={option.value}>

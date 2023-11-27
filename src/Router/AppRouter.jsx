@@ -6,8 +6,12 @@ import Register from "../pages/Register/Register";
 import ForgetPassword from "../pages/ForgetPassword/ForgetPassword";
 import MyAccount from "../pages/MyAccount/MyAccount";
 import FormRedEAmerica from "../pages/FormRedEAmerica/FormRedEAmerica";
+import ListRedEAmerica from "../pages/ListRedEAmerica/ListRedEAmerica";
+import VerificationAdvertiser from "../pages/VerificationAdvertiser/VerificationAdvertiser";
+import PrivateRouter from "./PrivateRouter";
 
 const AppRouter = () => {
+  const isAuth = true;
   return (
     <BrowserRouter>
       <Routes>
@@ -15,9 +19,17 @@ const AppRouter = () => {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/my-account" element={<MyAccount />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/form-redeamerica" element={<FormRedEAmerica />} />
+
+        <Route element={<PrivateRouter isAuthentication={isAuth} />}>
+          <Route path="/my-account" element={<MyAccount />} />
+          <Route path="/list-redeamerica" element={<ListRedEAmerica />} />
+          <Route
+            path="/detail-advertiser/:name"
+            element={<VerificationAdvertiser />}
+          />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
