@@ -27,6 +27,8 @@ const linksAdmin = [
   { name: "Inicio", path: "/" },
   { name: "Nosotros", path: "/home_auth" },
   { name: "Contactanos", path: "/contact" },
+  { name: "Iniciar Sesión", path: "/login" },
+  { name: "Registrarse", path: "/register" },
 ];
 
 const buttonsAdmin = [

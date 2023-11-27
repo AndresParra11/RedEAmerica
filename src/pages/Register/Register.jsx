@@ -88,7 +88,7 @@ const Register = () => {
     <Navigate to="/" />
   ) : (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" sx={{ marginBottom: "40px" }}>
         <CssBaseline />
         <Box
           sx={{

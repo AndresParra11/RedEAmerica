@@ -13,7 +13,7 @@ import VerificationAdvertiser from "../pages/VerificationAdvertiser/Verification
 import PrivateRouter from "./PrivateRouter";
 import { createContext, useState } from "react";
 import DetailPost from "../pages/DetailPost/DetailPost";
-import CreatePage from "../pages/Blog/BlogCreate/BlogCreate";
+import BlogCreate from "../pages/Blog/BlogCreate/BlogCreate";
 
 export const User = createContext({});
 
@@ -27,7 +27,7 @@ const AppRouter = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home_auth" element={<AuthApp />} />
-          <Route path="/create_blog" element={<CreatePage />} />
+          <Route path="/create-blog" element={<BlogCreate />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

@@ -54,7 +54,13 @@ const Sidebar = () => {
         <div id="nav-content">
           <div className="nav-button ">
             <FaPalette className="fas " />
-            <span>Crear Nuevo Blog</span>
+            <span
+              onClick={() => {
+                navigate("/create-blog");
+              }}
+            >
+              Crear Nuevo Blog
+            </span>
           </div>
           <div className="nav-button">
             <FaImages className="fas" />

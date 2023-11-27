@@ -13,6 +13,7 @@ import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { Navigate, Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
+import getUser from "../../utils/getUser";
 
 const defaultTheme = createTheme();
 
