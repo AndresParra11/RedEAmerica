@@ -1,5 +1,5 @@
 # RedEAmérica
-![logo]([https://images.jumpseller.com/store/corpoayapel-artesanias/store/logo/LogoArt.png?1620736148](https://redeamerica.org/Portals/0/favicon.ico?ver=eXYmmWW-wA8feODJgkZVZQ%3d%3d))
+![logo](https://fcgriopailacastilla.org/wp-content/uploads/2022/11/Logo_Redeamerica_grande.jpg)
 ## Autores:
 - [Andres Parra](https://github.com/AndresParra11)
 - [Manuela Moreno](https://github.com/mamorenoc2)
